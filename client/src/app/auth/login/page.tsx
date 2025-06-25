@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import z from "zod";
+import { userLoginSchema } from "@/schemas/userSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -14,39 +17,38 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import z from "zod";
-import { userRegistrationSchema } from "@/schemas/userSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-function RegisterPage() {
-  const form = useForm<z.infer<typeof userRegistrationSchema>>({
-    resolver: zodResolver(userRegistrationSchema),
+function LoginPage() {
+  const form = useForm<z.infer<typeof userLoginSchema>>({
+    resolver: zodResolver(userLoginSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
   });
 
   const router = useRouter();
-  const { register } = useAuthStore();
+  const { login } = useAuthStore();
 
   async function onSubmit({
-    name,
     email,
     password,
-  }: z.infer<typeof userRegistrationSchema>) {
-    const userId = await register(name, email, password);
+  }: z.infer<typeof userLoginSchema>) {
+    const isLoggedIn = await login(email, password);
 
-    if (!userId) {
-      toast.error("Registration Failed, Please try again.");
+    if (!isLoggedIn) {
+      toast.error("Login Failed, Please try again!");
       return;
     }
-    toast.success("Registered successfully!");
-    router.push("/auth/login");
+
+    toast.success("Logged In successfully!");
+
+    if (useAuthStore.getState().user?.role === "SUPER_ADMIN")
+      router.push("/super-admin");
+    else router.push("/home");
   }
 
   return (
@@ -73,24 +75,6 @@ function RegisterPage() {
             <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Enter your name"
-                        className="bg-[#ffede1]"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
@@ -102,7 +86,7 @@ function RegisterPage() {
                         className="bg-[#ffede1]"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage></FormMessage>
                   </FormItem>
                 )}
               />
@@ -121,7 +105,7 @@ function RegisterPage() {
                         className="bg-[#ffede1]"
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage></FormMessage>
                   </FormItem>
                 )}
               />
@@ -130,18 +114,16 @@ function RegisterPage() {
                 className="w-full bg-black hover:bg-black/80 transition-all text-white"
                 type="submit"
               >
-                {form.formState.isSubmitting
-                  ? "CREATING ACCOUNT..."
-                  : "CREATE ACCOUNT"}
+                {form.formState.isSubmitting ? "LOGGIN IN..." : "LOGIN"}
               </Button>
 
               <p className="text-center text-[#3f3d56] text-sm">
-                Already have an account!{" "}
+                New Here!{" "}
                 <Link
                   className="text-black font-bold hover:underline"
-                  href={"/auth/login"}
+                  href={"/auth/register"}
                 >
-                  Sign In
+                  Sign Up
                 </Link>
               </p>
             </form>
@@ -152,4 +134,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default LoginPage;
