@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import z from "zod";
-import { userRegistrationSchema } from "@/schemas/userSchema";
+import { userRegistrationSchema } from "@/schemas/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { toast } from "sonner";

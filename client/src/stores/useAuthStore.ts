@@ -1,4 +1,4 @@
-import { API_ROUTES } from "@/utils/api";
+import { API_ROUTES } from "@/utils/api.util";
 import axios, { isAxiosError } from "axios";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";

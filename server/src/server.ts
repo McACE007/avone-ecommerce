@@ -5,6 +5,8 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes";
+import productRoutes from "./routes/productRoutes";
+import superAdminProductRoutes from "./routes/superAdminProductRoutes";
 
 dotenv.config();
 
@@ -23,6 +25,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/super-admin/products", superAdminProductRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello");

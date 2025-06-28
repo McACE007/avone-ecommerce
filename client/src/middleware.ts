@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { API_ROUTES } from "./utils/api";
+import { API_ROUTES } from "./utils/api.util";
 import { jwtVerify } from "jose";
 
 const publicRoutes = ["/auth/register", "/auth/login"];
