@@ -6,8 +6,14 @@ import {
   ChevronLeft,
   ChevronRight,
   FileText,
+  Hamburger,
+  HamburgerIcon,
+  HamIcon,
   ListOrdered,
   LogOut,
+  Menu,
+  MoreHorizontal,
+  MoreVertical,
   Package,
   Printer,
   SendToBack,
@@ -73,34 +79,26 @@ function SuperAdminSidebar({ isOpen, toggle }: SidebarProps) {
   return (
     <div
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen bg-background transition-all duration-300",
+        "fixed left-0 top-0 bottom-0 z-40 h-full bg-background transition-[width] duration-300 ease-in-out",
         isOpen ? "w-64" : "w-16",
         "border-r"
       )}
     >
-      <div className="flex h-16 items-center justify-between px-4">
+      <div className="flex h-16 items-center px-4">
+        <Button variant={"ghost"} size={"icon"} onClick={toggle}>
+          <Menu />
+        </Button>
         <h1
           className={cn(
-            "font-semibold transition-all duration-300",
-            !isOpen && "hidden"
+            "font-semibold ml-3 whitespace-nowrap overflow-hidden transition-all duration-300",
+            !isOpen && "opacity-0 w-0"
           )}
         >
           Admin Panel
         </h1>
-        <Button
-          variant={"ghost"}
-          size={"icon"}
-          className="ml-auto"
-          onClick={toggle}
-        >
-          {isOpen ? (
-            <ChevronLeft className="size-4" />
-          ) : (
-            <ChevronRight className="size-4" />
-          )}
-        </Button>
       </div>
-      <div className="space-y-1 py-4">
+      <hr className="border-muted mt-2" />
+      <div className="space-y-1 py-4 flex flex-col items-center">
         {menuItems.map((item) => (
           <div
             key={item.name}
@@ -110,14 +108,14 @@ function SuperAdminSidebar({ isOpen, toggle }: SidebarProps) {
                 : () => router.push(item.href)
             }
             className={cn(
-              "flex items-center j px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground cursor-pointer"
+              "flex items-center py-2 px-6 w-full text-sm hover:bg-accent hover:text-accent-foreground cursor-pointer"
             )}
           >
-            <item.icon className="size-4" />
+            <item.icon className="size-4 min-w-4" />
             <span
               className={cn(
-                "ml-3 transition-all duration-300",
-                !isOpen && "hidden"
+                "whitespace-nowrap overflow-hidden transition-[width, opacity] duration-300",
+                isOpen ? "opacity-100 w-auto ml-3" : "opacity-0 w-0"
               )}
             >
               {item.name}

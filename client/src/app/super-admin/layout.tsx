@@ -8,7 +8,7 @@ const SuperAdminLayout = ({ children }: { children: ReactNode }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen w-full bg-background flex">
       <SuperAdminSidebar
         isOpen={isSidebarOpen}
         toggle={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -16,9 +16,8 @@ const SuperAdminLayout = ({ children }: { children: ReactNode }) => {
 
       <div
         className={cn(
-          "transition-all duration-300",
-          isSidebarOpen ? "ml-64" : "ml-16",
-          "min-h-screen"
+          "transition-all duration-300 flex-1",
+          isSidebarOpen ? "ml-64" : "ml-16"
         )}
       >
         {children}

@@ -41,6 +41,7 @@ export const authenticateJwt = (
       email: payload.email,
       role: payload.role,
     };
+    next();
   } catch (error) {
     console.error(error);
     res

@@ -22,6 +22,8 @@ export const createProduct = async (
 
     const files = req.files as Express.Multer.File[];
 
+    console.log(files);
+
     const uploadPromises = files.map((file) =>
       cloudinary.uploader.upload(file.path, {
         folder: "avone-ecommerce",
@@ -58,7 +60,7 @@ export const getAllProducts = async (
 ): Promise<void> => {
   try {
     const products = await primsa.product.findMany();
-    res.status(200).json(products);
+    res.status(200).json({ succes: true, products });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Failed to fetch products" });
