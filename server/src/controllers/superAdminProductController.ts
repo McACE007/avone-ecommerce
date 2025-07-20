@@ -73,7 +73,7 @@ export const getProductById = async (
 ): Promise<void> => {
   try {
     const { productId } = req.params;
-
+    console.log(productId);
     const product = await primsa.product.findUnique({
       where: {
         id: productId,
@@ -85,7 +85,7 @@ export const getProductById = async (
       return;
     }
 
-    res.status(200).json(product);
+    res.status(200).json({ product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Failed to fetch product" });

@@ -22,6 +22,4 @@ export const updateProductSchema = z.object({
   colors: z.string().min(3),
   price: z.number(),
   stock: z.number(),
-  soldCount: z.number(),
-  rating: z.number(),
 });

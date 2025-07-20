@@ -8,7 +8,7 @@ function generateToken(userId: string, email: string, role: string) {
   const accessToken = jwt.sign(
     { userId, email, role },
     process.env.JWT_SECRET!,
-    { expiresIn: "60m" }
+    { expiresIn: "1year" }
   );
 
   const refreshToken = v4();
