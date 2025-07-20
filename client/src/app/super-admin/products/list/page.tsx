@@ -19,12 +19,15 @@ import {
   Trash2,
 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
 function SuperAdminProductsListingPage() {
   const { products, getAllProducts, isLoading, deleteProduct, error } =
     useSuperAdminProductStore();
+
+  const router = useRouter();
 
   useEffect(() => {
     getAllProducts();
@@ -114,7 +117,11 @@ function SuperAdminProductsListingPage() {
                         <div className="flex justify-end">
                           <Button
                             variant={"ghost"}
-                            onClick={() => console.log("sdfsdfljksdlkfjsdfl")}
+                            onClick={() =>
+                              router.push(
+                                `/super-admin/products/add?id=${product.id}`
+                              )
+                            }
                             size={"icon"}
                           >
                             <Pencil size={4} />

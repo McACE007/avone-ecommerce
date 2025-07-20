@@ -12,6 +12,7 @@ interface ProductState {
   createProduct: (productData: FormData) => Promise<boolean>;
   updateProduct: (productId: string, productData: FormData) => Promise<boolean>;
   deleteProduct: (productId: string) => Promise<boolean>;
+  getProductById: (productId: string) => Promise<Product | null>;
 }
 
 const axoisInstance = axios.create({
@@ -21,7 +22,7 @@ const axoisInstance = axios.create({
 
 export const useSuperAdminProductStore = create<ProductState>((set, get) => ({
   products: [],
-  isLoading: true,
+  isLoading: false,
   error: null,
   getAllProducts: async () => {
     set({ isLoading: true, error: null });
@@ -37,6 +38,23 @@ export const useSuperAdminProductStore = create<ProductState>((set, get) => ({
         isLoading: false,
       });
       return false;
+    }
+  },
+  getProductById: async (productId: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await axoisInstance.get(`/${productId}`);
+      console.log(response);
+      set({ isLoading: false });
+      return response.data.product;
+    } catch (error) {
+      set({
+        error: isAxiosError(error)
+          ? error.response?.data.error
+          : "Failed to fetch product",
+        isLoading: false,
+      });
+      return null;
     }
   },
   createProduct: async (productData: FormData) => {

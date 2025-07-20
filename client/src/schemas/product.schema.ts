@@ -22,16 +22,8 @@ export const createProductSchema = z.object({
 
   category: z.string().min(1, "Please select a category"),
   gender: z.string().min(1, "Please select a gender"),
-  sizes: z
-    .array(z.enum(sizes, { errorMap: () => ({ message: "Invalid size" }) }))
-    .min(1, { message: "Select at least one size" }),
-
-  colors: z
-    .array(
-      z.enum(colorNames, { errorMap: () => ({ message: "Invalid color" }) })
-    )
-    .min(1, { message: "Select at least one color" }),
-
+  sizes: z.array(z.string()).min(1, "Select at least one size"),
+  colors: z.array(z.string()).min(1, "Select at least one color"),
   price: z.coerce
     .number({
       invalid_type_error: "Price must be a number",
