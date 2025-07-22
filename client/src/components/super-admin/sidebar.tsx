@@ -3,17 +3,10 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
-  ChevronLeft,
-  ChevronRight,
   FileText,
-  Hamburger,
-  HamburgerIcon,
-  HamIcon,
   ListOrdered,
   LogOut,
   Menu,
-  MoreHorizontal,
-  MoreVertical,
   Package,
   Printer,
   SendToBack,
@@ -40,19 +33,19 @@ const menuItems = [
     href: "/super-admin/products/add",
   },
   {
-    name: "Orders",
-    icon: SendToBack,
-    href: "super-admin/orders",
-  },
-  {
     name: "Coupons",
     icon: FileText,
-    href: "super-admin/coupons/list",
+    href: "/super-admin/coupons/list",
   },
   {
     name: "Create Coupon",
     icon: ListOrdered,
-    href: "super-admin/coupons/add",
+    href: "/super-admin/coupons/add",
+  },
+  {
+    name: "Orders",
+    icon: SendToBack,
+    href: "super-admin/orders",
   },
   {
     name: "Settings",

@@ -1,4 +1,5 @@
 "use client";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,15 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useSuperAdminProductStore } from "@/stores/useSuperAdminProductStore";
-import {
-  Loader,
-  Loader2,
-  LoaderCircle,
-  PackageX,
-  Pencil,
-  SplinePointer,
-  Trash2,
-} from "lucide-react";
+import { PackageX, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -46,12 +39,7 @@ function SuperAdminProductsListingPage() {
     }
   }
 
-  if (isLoading)
-    return (
-      <div className="h-full flex justify-center items-center">
-        <LoaderCircle className="animate-spin size-10 text-blue-800" />
-      </div>
-    );
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="p-6 h-full">
