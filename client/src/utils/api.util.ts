@@ -5,4 +5,5 @@ export const API_ROUTES = {
   PRODUCTS: `${API_BASE_URL}/api/products`,
   SUPER_ADMIN_PRODUCTS: `${API_BASE_URL}/api/super-admin/products`,
   COUPON: `${API_BASE_URL}/api/super-admin/coupons`,
+  SETTINGS: `${API_BASE_URL}/api/settings`,
 };

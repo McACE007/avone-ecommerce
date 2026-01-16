@@ -27,6 +27,7 @@ function SuperAdminProductsListingPage() {
   }, [getAllProducts]);
 
   async function handleDeleteProduct(productId: string) {
+    console.log("Pressed", productId);
     if (window.confirm("Are you sure you want to delete this product?")) {
       const success = await deleteProduct(productId);
       if (!success) {

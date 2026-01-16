@@ -12,12 +12,10 @@ export const createCoupon = async (
 
     if (!success) {
       console.error(error);
-      res
-        .status(400)
-        .json({
-          success,
-          error: error.issues.map((issue) => issue.message).join(", "),
-        });
+      res.status(400).json({
+        success,
+        error: error.issues.map((issue) => issue.message).join(", "),
+      });
       return;
     }
 

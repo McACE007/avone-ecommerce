@@ -13,7 +13,6 @@ const SuperAdminLayout = ({ children }: { children: ReactNode }) => {
         isOpen={isSidebarOpen}
         toggle={() => setIsSidebarOpen(!isSidebarOpen)}
       />
-
       <div
         className={cn(
           "transition-all duration-300 flex-1",

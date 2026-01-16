@@ -45,12 +45,12 @@ const menuItems = [
   {
     name: "Orders",
     icon: SendToBack,
-    href: "super-admin/orders",
+    href: "/super-admin/orders",
   },
   {
     name: "Settings",
     icon: Settings,
-    href: "super-admin/settings",
+    href: "/super-admin/settings",
   },
   {
     name: "Logout",

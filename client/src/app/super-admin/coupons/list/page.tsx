@@ -11,15 +11,31 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { format } from "date-fns";
 import { useCouponStore } from "@/stores/useCouponStore";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { toast } from "sonner";
 
 function SuperAdminCouponsListingPage() {
-  const { isLoading, fetchAllCoupons, coupons } = useCouponStore();
+  const { isLoading, fetchAllCoupons, coupons, error, deleteCoupon } =
+    useCouponStore();
   const fetchAllCouponRef = useRef(false);
   const router = useRouter();
+
+  const handleDeleteCouponCode = async (couponId: string) => {
+    if (window.confirm("Are you sure you want to delete this coupon?")) {
+      const success = await deleteCoupon(couponId);
+      if (!success) {
+        toast.error(error);
+        return;
+      }
+
+      await fetchAllCoupons();
+      toast.success("Coupon deleted successfully!");
+    }
+  };
 
   useEffect(() => {
     if (fetchAllCouponRef.current === false) {
@@ -67,20 +83,24 @@ function SuperAdminCouponsListingPage() {
                   </p>
                 </TableCell>
                 <TableCell>
-                  <p>{new Date(coupon.startDate).toLocaleDateString()}</p>
+                  <p>{format(new Date(coupon.startDate), "dd MMM yyyy")}</p>
                 </TableCell>
                 <TableCell>
-                  <p>{new Date(coupon.endDate).toLocaleDateString()}</p>
+                  <p>{format(new Date(coupon.endDate), "dd MMM yyyy")}</p>
                 </TableCell>
                 <TableCell>
-                  <Badge>
-                    {new Date(coupon.startDate) <= new Date(coupon.endDate)
-                      ? "Active"
-                      : "Expired"}
-                  </Badge>
+                  {new Date(coupon.startDate) <= new Date(coupon.endDate) ? (
+                    <Badge className="bg-green-500">Active</Badge>
+                  ) : (
+                    <Badge className="bg-red-500">Expired</Badge>
+                  )}
                 </TableCell>
                 <TableCell>
-                  <Button variant={"ghost"} size={"sm"}>
+                  <Button
+                    variant={"ghost"}
+                    size={"sm"}
+                    onClick={() => handleDeleteCouponCode(coupon.id)}
+                  >
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </TableCell>

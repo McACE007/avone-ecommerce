@@ -60,7 +60,7 @@ export const useCouponStore = create<CouponStore>((set) => ({
         isLoading: false,
         error: isAxiosError(error)
           ? error.response?.data.error
-          : "Failed to create coupon",
+          : "Failed to create coupon code",
       });
       return null;
     }
@@ -68,7 +68,7 @@ export const useCouponStore = create<CouponStore>((set) => ({
   deleteCoupon: async (couponId) => {
     set({ isLoading: true, error: null });
     try {
-      await axiosInstance.delete(`/{${couponId}}`);
+      await axiosInstance.delete(`/${couponId}`);
       set({ isLoading: false });
       return true;
     } catch (error) {

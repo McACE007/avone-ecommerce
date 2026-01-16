@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes";
 import productRoutes from "./routes/productRoutes";
 import couponRoutes from "./routes/couponRoutes";
+import settingsRoutes from "./routes/settingsRoutes";
 import superAdminProductRoutes from "./routes/superAdminProductRoutes";
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/super-admin/coupons", couponRoutes);
 app.use("/api/super-admin/products", superAdminProductRoutes);
+app.use("/api/settings", superAdminProductRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello");
